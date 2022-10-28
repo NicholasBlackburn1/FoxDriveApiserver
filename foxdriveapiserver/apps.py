@@ -22,8 +22,29 @@ class users(db.Model):
 
     userid = db.Column(db.String(255))
     name =  db.Column(db.String(255))
-    createdate =  db.Column(db.String(255))
+    create_date =  db.Column(db.String(255))
 
+
+# event db
+class events(db.Model):
+    __tablename__ = "capturedevents"
+    __table_args__ = {"sqlite_autoincrement": True}
+
+    # colomes 
+    userid = db.Column(db.String(255))
+    eventid = db.Column(db.String(255))
+    fired_time = db.Column(db.String(255))
+
+
+class userspoints(db.Model):
+
+    __tablename__ = "userspoints"
+    __table_args__ = {"sqlite_autoincrement": True}
+
+    # colomes 
+    userid = db.Column(db.String(255))
+    Last_eventid = db.Column(db.String(255))
+    current_points = db.Column(db.String(255))
 
 
 
