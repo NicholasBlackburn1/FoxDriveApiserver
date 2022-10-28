@@ -26,7 +26,7 @@ from flask import (
 
 from datetime import datetime
 import pathlib
-
+from utils import Consts
 
 # swagger
 swaggeryamls = str(pathlib.Path().absolute()) + "/documents/swagger/"
@@ -37,7 +37,7 @@ apibp = Blueprint("apibp", __name__)
 
 
 # base url
-@apibp.route("/")
+@apibp.route(Consts.base)
 def index():
 
     return "hewwo"
