@@ -26,7 +26,7 @@ from flask import (
 
 from datetime import datetime
 import pathlib
-from utils import Consts
+from utils import Consts, logger
 
 # swagger
 swaggeryamls = str(pathlib.Path().absolute()) + "/documents/swagger/"
@@ -41,3 +41,16 @@ apibp = Blueprint("apibp", __name__)
 def index():
 
     return "hewwo"
+
+"""
+user endpoints 
+
+creates and manages users in the db
+"""
+
+# creates users
+@apibp.route(Consts.users+"create", methods=["POST"])
+
+def createuser():
+    logger.info("Creating New User")
+
