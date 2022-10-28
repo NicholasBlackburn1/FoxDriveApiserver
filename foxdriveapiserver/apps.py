@@ -16,13 +16,16 @@ from api import routes
 db = SQLAlchemy()
 
 # the user db
-class users(db.model):
+class users(db.Model):
     __tablename__ = "Users"
     __table_args__ = {"sqlite_autoincrement": True}
 
     userid = db.Column(db.String(255))
     name =  db.Column(db.String(255))
     createdate =  db.Column(db.String(255))
+
+
+
 
 
 
