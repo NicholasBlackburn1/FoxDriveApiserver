@@ -8,12 +8,12 @@ from flasgger import Swagger
 from pathlib import Path
 from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
-from utils import logger
+from utils import logger, Consts
 from api import routes
 
 
-db = SQLAlchemy()
 
+db = SQLAlchemy()
 
 
 # this cofigs the db
@@ -32,30 +32,58 @@ def configure_database(app, db):
         db.session.remove()
 
 
+
+
+# this makes the local file paths for storing the data
+def makePaths():
+
+
+    if Path(str(Path().absolute()) + Consts.basepath).exists:
+        # base bath
+        logger.info("creating file structure for prgram...")
+
+        Path(str(Path().absolute()) + Consts.basepath).mkdir(
+            parents=True, exist_ok=True
+        )
+
+        # avi paths
+        Path(str(Path().absolute()) + Consts.collectedimages).mkdir(
+            parents=True, exist_ok=True
+        )
+        Path(str(Path().absolute()) + Consts.collectedvideos).mkdir(
+            parents=True, exist_ok=True
+        )
+
+        logger.PipeLine_Ok("created paths successfully")
+
+    else:
+        logger.warning("the paths exist cannot create them uwu~")
+
+
+#! creates the tweb app 
 def create_app():
 
     #! created paths
     logger.info("creating the folder patjhs...")
+    makePaths()
     
 
     example_blueprint = Blueprint("example_blueprint", __name__)
 
-
     # creates the flask app
     logger.Warning("Creating flask app...")
-    app = Flask(__name__, static_url_path="/files",
-                static_folder="FoxDrive-Data/static")
+    app = Flask(
+        __name__, static_url_path="/files", static_folder="FoxDrive-Data/static"
+    )
 
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         "sqlite:///" + str(pathlib.Path().absolute()) + "/FoxDrive-Data/" + "Data.db"
     )
 
-    
     logger.PipeLine_Ok("started flaskapp")
 
     logger.info("registered blueprints")
 
-    
     app.register_blueprint(example_blueprint)
     app.register_blueprint(routes.apibp)
     logger.PipeLine_Ok("REGISTERED blueprints")

@@ -28,10 +28,8 @@ from datetime import datetime
 import pathlib
 
 
-
-
 # swagger
-swaggeryamls = str(pathlib.Path().absolute())+'/documents/swagger/'
+swaggeryamls = str(pathlib.Path().absolute()) + "/documents/swagger/"
 
 
 # sets up base for routs
@@ -39,7 +37,7 @@ apibp = Blueprint("apibp", __name__)
 
 
 # base url
-@apibp.route('/')
+@apibp.route("/")
 def index():
-    
+
     return "hewwo"
