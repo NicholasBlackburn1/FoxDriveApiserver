@@ -1,0 +1,8 @@
+## Fooxdrive api server
+
+*an api server for foxdrive*
+
+what this is suppost to do 
+
+1. create dataabases to hold data
+2. allow the webpage and the opencv communicate 
