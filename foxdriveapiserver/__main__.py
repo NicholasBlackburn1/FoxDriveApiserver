@@ -9,9 +9,13 @@ from utils import logger, Consts
 def main():
 
 
+    
+  
+
+
     app = create_app()
     app.config["SQLALCHEMY_DATABASE_URI"] = (
-        "sqlite:///" + str(pathlib.Path().absolute()) + "/FoxDrive/" + "Data.db"
+        "sqlite:///" + str(pathlib.Path().absolute()) + "/FoxDrive-Data/" + "Data.db"
     )
 
     

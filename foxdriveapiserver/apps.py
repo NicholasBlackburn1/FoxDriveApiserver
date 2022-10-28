@@ -3,11 +3,13 @@ routs for the api server
 """
 
 
+import pathlib
 from flasgger import Swagger
 from pathlib import Path
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from utils import logger
+from api import routes
 
 
 db = SQLAlchemy()
@@ -41,8 +43,14 @@ def create_app():
 
     # creates the flask app
     logger.Warning("Creating flask app...")
-    app = Flask(__name__, static_url_path="/files",static_folder="FoxDrive/static")
+    app = Flask(__name__, static_url_path="/files",
+                static_folder="FoxDrive-Data/static")
 
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "sqlite:///" + str(pathlib.Path().absolute()) + "/FoxDrive-Data/" + "Data.db"
+    )
+
+    
     logger.PipeLine_Ok("started flaskapp")
 
     logger.info("registered blueprints")
@@ -52,9 +60,7 @@ def create_app():
     app.register_blueprint(routes.apibp)
     logger.PipeLine_Ok("REGISTERED blueprints")
 
-    logger.info("setting foxserver database..")
+    logger.info("setting foxdrive database..")
     configure_database(app, db)
     db.init_app(app)
-    DebugToolbarExtension(app)
-
     return app
