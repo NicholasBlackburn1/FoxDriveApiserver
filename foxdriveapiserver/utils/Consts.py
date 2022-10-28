@@ -1,0 +1,3 @@
+"""
+consts for the uwu
+"""
