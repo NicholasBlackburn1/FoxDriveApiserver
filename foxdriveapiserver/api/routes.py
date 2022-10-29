@@ -63,7 +63,7 @@ def createuser():
     user.userid = request.json["userid"]
     user.create_date = request.json["create_date"]
 
-
+    # checks if user is in the db
     if (
         app.db.session.query(app.users).filter_by(name=user.name).scalar()
         is not None
@@ -71,6 +71,24 @@ def createuser():
        
         logger.Error("Entry exsits wont create a new one!")
         return jsonify({"status": "usr in db already", "user": str(user.name)})
-       
+    else:
+        app.db.session.add(user)
+        app.db.session.commit()
+
+        # saves the avis
+        logger.PipeLine_Ok("saved avi to db....")
+
+        # logs the count of the avis in the db
+        logger.PipeLine_Data(
+            "entries in db is "
+            + str(app.db.session.query(app.users).count())
+        )
+        
+        
+        return jsonify({"status": "sent user", "user": str(user.name)})
+
+
+
+ 
 
 
