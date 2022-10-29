@@ -5,6 +5,8 @@ routs for the server
 from functools import wraps
 from importlib.resources import path
 import os
+from uuid import uuid4
+import uuid
 from flasgger import swag_from
 from crypt import methods
 from datetime import datetime
@@ -12,7 +14,6 @@ import json
 
 from pyexpat import model
 from urllib import response
-from xmlrpc.client import DateTime
 from flask import Blueprint, abort
 from flask import (
     jsonify,
@@ -30,7 +31,6 @@ from utils import Consts, logger
 import apps as app
 # swagger
 swaggeryamls = str(pathlib.Path().absolute()) + "/documents/swagger/"
-
 
 # sets up base for routs
 apibp = Blueprint("apibp", __name__)
@@ -60,8 +60,8 @@ def createuser():
 
     # users db
     user.name = request.json["name"]
-    user.userid = request.json["userid"]
-    user.create_date = request.json["create_date"]
+    user.userid = str(uuid.uuid4())
+    user.create_date = str(datetime.now)
 
     # checks if user is in the db
     if (
@@ -97,15 +97,15 @@ def getallusers():
     data = []
 
     # data sent in the lists is 0,1,2,3
-    for i in range(int(app.db.session.query(app.SeenUsers).count())):
+    for i in range(int(app.db.session.query(app.users).count())):
         # keywords.getfurrieswords(pathlib.Path.absolute)
         data.append(
             [
                 usrs[i].userid,
                 usrs[i].name,
-                str(usrs[i].create_date),
+                usrs[i].create_date,
             ]
         )
 
-    return jsonify(data)
+    return jsonify({"data":str(data)})
 
