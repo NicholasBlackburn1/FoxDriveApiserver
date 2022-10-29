@@ -20,7 +20,7 @@ class users(db.Model):
     __tablename__ = "Users"
     __table_args__ = {"sqlite_autoincrement": True}
 
-    userid = db.Column(db.String(255))
+    userid = db.Column(db.String(255),primary_key=True)
     name =  db.Column(db.String(255))
     create_date =  db.Column(db.String(255))
 
@@ -31,7 +31,7 @@ class events(db.Model):
     __table_args__ = {"sqlite_autoincrement": True}
 
     # colomes 
-    userid = db.Column(db.String(255))
+    userid = db.Column(db.String(255),primary_key=True)
     eventid = db.Column(db.String(255))
     fired_time = db.Column(db.String(255))
 
@@ -42,7 +42,7 @@ class userspoints(db.Model):
     __table_args__ = {"sqlite_autoincrement": True}
 
     # colomes 
-    userid = db.Column(db.String(255))
+    userid = db.Column(db.String(255),primary_key=True)
     Last_eventid = db.Column(db.String(255))
     current_points = db.Column(db.String(255))
 

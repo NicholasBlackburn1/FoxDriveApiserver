@@ -76,7 +76,7 @@ def createuser():
         app.db.session.commit()
 
         # saves the avis
-        logger.PipeLine_Ok("saved avi to db....")
+        logger.PipeLine_Ok("saved user to db....")
 
         # logs the count of the avis in the db
         logger.PipeLine_Data(
@@ -88,7 +88,11 @@ def createuser():
         return jsonify({"status": "sent user", "user": str(user.name)})
 
 
-
+# gets the user by id
+@apibp.route(Consts.users+"getuserbyid", methods=["POST"])
  
-
+def getuserbyid():
+    
+    logger.info("uwu~ getting user id")
+    return
 
