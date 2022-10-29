@@ -89,10 +89,23 @@ def createuser():
 
 
 # gets the user by id
-@apibp.route(Consts.users+"getuserbyid", methods=["POST"])
+@apibp.route(Consts.users+"getallusers", methods=["GET"])
  
-def getuserbyid():
+def getallusers():
     
-    logger.info("uwu~ getting user id")
-    return
+    usrs = app.users.query.filter_by().all()
+    data = []
+
+    # data sent in the lists is 0,1,2,3
+    for i in range(int(app.db.session.query(app.SeenUsers).count())):
+        # keywords.getfurrieswords(pathlib.Path.absolute)
+        data.append(
+            [
+                usrs[i].userid,
+                usrs[i].name,
+                str(usrs[i].create_date),
+            ]
+        )
+
+    return jsonify(data)
 

@@ -3,6 +3,9 @@ consts for the uwu
 """
 url = "0.0.0.0"
 
+# data lists 
+userinfo = []
+
 # file dirs 
 basepath = "/FoxDrive-Data"
 files = "/files"
